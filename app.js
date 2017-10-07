@@ -14,5 +14,24 @@
 // 5. battle output: how many battles, winning team, winning bot, survivors on losing team
 
 runApp = function() {
+	inputTeams = function() {
+		// get form input from user for one bot at a time, in the form of:
+		// [bot name], [team], [strength], [intelligence], [speed], [endurance],[rank],[courage],[firepower],[skill]
+		// 
+		// minimum of two combatant defined
+		// logic requiring at least one bot from each team with error message
+		// option to add another bot (give a "+" control)
+	}
+	rankTeams = function() {
+		// sort bots on each team by rank rating
+	}
+	battleBots = function() {
+		// user will click a "start" button to begin battle
+		// battle logic implemented
+		// results are output
+	}
+	newBattle = function() {
+		// reset all inputs and arrays to start fresh
+	}
 
 }
