@@ -12,16 +12,38 @@
 // 	any bot named Optimus Prime or Predaking automatically win their match, UNLESS they face each other, 
 // 	  and THEN all bots are destroyed and game ends
 // 5. battle output: how many battles, winning team, winning bot, survivors on losing team
-
+	var autobots = 0;
+	var decepticons = 0;
+	var teamAutobots = [];
+	var teamDecepticons = [];
 runApp = function() {
-	inputTeams = function() {
+
+	document.getElementById("autobotTeamSize").innerHTML += "<p>Autobots team size is " + autobots + "</p>";
+	document.getElementById("decepticonTeamSize").innerHTML += "<p>Decepticons team size is " + decepticons + "</p>";
+
+	inputAutobot = function() {
 		// get form input from user for one bot at a time, in the form of:
 		// [bot name], [team], [strength], [intelligence], [speed], [endurance],[rank],[courage],[firepower],[skill]
 		// 
 		// minimum of two combatant defined
 		// logic requiring at least one bot from each team with error message
 		// option to add another bot (give a "+" control)
+		autobots ++;
+		document.getElementById("autobotTeamSize").innerHTML = "<p>Autobots team size is " + autobots + "</p>";
 	}
+	
+	inputDecepticon = function() {
+		// get form input from user for one bot at a time, in the form of:
+		// [bot name], [team], [strength], [intelligence], [speed], [endurance],[rank],[courage],[firepower],[skill]
+		// 
+		// minimum of two combatant defined
+		// logic requiring at least one bot from each team with error message
+		// option to add another bot (give a "+" control)
+		decepticons ++;		
+		document.getElementById("decepticonTeamSize").innerHTML = "<p>Decepticons team size is " + decepticons + "</p>";
+	}
+	console.log("Autobots team size is " + autobots);
+	console.log("Decepticons team size is " + decepticons);
 	rankTeams = function() {
 		// sort bots on each team by rank rating
 	}
@@ -33,5 +55,7 @@ runApp = function() {
 	newBattle = function() {
 		// reset all inputs and arrays to start fresh
 	}
-
+	rankTeams();
+	battleBots();
+	newBattle();
 }

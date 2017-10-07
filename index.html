@@ -4,12 +4,47 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Aequilibrium Coding Challenge #2</title>
-	<link rel="stylesheet" href="">
+	<link rel="stylesheet" href="styles.css">
 	<script  type="text/javascript" src="app.js"></script>
 </head>
 <body onload="runApp()">
-	<h1>Transformers Battle Arena</h1>
-	<ol id="terrainUnit">Battle outcomes: 
-	</ol>
+	<div class="title">
+		<h1>Transformers Battle Arena</h1>
+	</div>
+	<br>
+	<div class="column-1-2">
+		<form id="defineBot" action="" method="get" onSubmit="inputAutobot();return false;">
+			<input type="text" placeholder="name"><br>
+			<input type="radio" name="team" value="Autobot" checked="checked"> Autobot<br>
+			Strength: <input type="number" name="Strength" value="10" min="1" max="10"><br>
+			Intelligence: <input type="number" name="Intelligence" value="10" min="1" max="10"><br>
+			Speed: <input type="number" name="Speed" value="10" min="1" max="10"><br>
+			Endurance: <input type="number" name="Endurance" value="10" min="1" max="10"><br>
+			Rank: <input type="number" name="Rank" value="10" min="1" max="10"><br>
+			Courage: <input type="number" name="Courage" value="10" min="1" max="10"><br>
+			Firepower: <input type="number" name="Firepower" value="10" min="1" max="10"><br>
+			Skill: <input type="number" name="Skill" value="10" min="1" max="10"><br>
+			<input type="submit">
+		<p id="autobotTeamSize"></p>
+		</form>
+
+	</div>
+	<div class="column-1-2">
+		<form id="defineBot" action="" method="get" onSubmit="inputDecepticon();return false;">
+			<input type="text" placeholder="name"><br>
+			<input type="radio" name="team" value="Decepticon" checked="checked"> Decepticon<br>
+			Strength: <input type="number" name="Strength" value="10" min="1" max="10"><br>
+			Intelligence: <input type="number" name="Intelligence" value="10" min="1" max="10"><br>
+			Speed: <input type="number" name="Speed" value="10" min="1" max="10"><br>
+			Endurance: <input type="number" name="Endurance" value="10" min="1" max="10"><br>
+			Rank: <input type="number" name="Rank" value="10" min="1" max="10"><br>
+			Courage: <input type="number" name="Courage" value="10" min="1" max="10"><br>
+			Firepower: <input type="number" name="Firepower" value="10" min="1" max="10"><br>
+			Skill: <input type="number" name="Skill" value="10" min="1" max="10"><br>
+			<input type="submit">
+		<p id="decepticonTeamSize"></p>
+		</form>
+
+	</div>
 </body>
 </html>

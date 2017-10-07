@@ -1,0 +1,14 @@
+body {
+	display:  flex;
+	flex-flow:  row wrap;
+	justify-content: center;
+	align-content: space-around;
+}
+.column-1-2 {
+	display:  inline-flex;
+	width: 50%;
+}
+.title {
+	width:  100vw;
+	display:  block;
+}
