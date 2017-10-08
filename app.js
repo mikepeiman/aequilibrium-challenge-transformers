@@ -53,6 +53,14 @@ runApp = function() {
 				teamAutobots[Autobots].skill = document.getElementById("inputBotSkill").value;
 				Autobots ++;
 				document.getElementById("teamSize").innerHTML += "<p>Autobots team size is " + Autobots + "</p>";
+
+				// if (teamAutobots.length > 1) {
+				// 	for (var i = 0; i < teamAutobots.length; i++) {
+				// 		if (teamAutobots[i].rank < teamAutobots[i + 1].rank) {
+				// 			teamAutobots.push(teamAutobots[i]);
+				// 		}
+				// 	}
+				// }
 			}
 			if (document.getElementById("selectDecepticon").checked) {
 				teamDecepticons[Decepticons] = new Bot();
@@ -70,31 +78,52 @@ runApp = function() {
 				document.getElementById("teamSize").innerHTML += "<p>Decepticons team size is " + Decepticons + "</p>";
 			}	
 		}
+		document.getElementById("inputBotName").value = "";
 	}
-	
-	inputDecepticon = function() {
-		// get form input from user for one bot at a time, in the form of:
-		// [bot name], [team], [strength], [intelligence], [speed], [endurance],[rank],[courage],[firepower],[skill]
 
-		Decepticons ++;		
-		document.getElementById("decepticonTeamSize").innerHTML = "<p>Decepticons team size is " + Decepticons + "</p>";
-	}
 	console.log("Autobots team size is " + Autobots);
 	console.log("Decepticons team size is " + Decepticons);
-	rankTeams = function() {
-		// sort bots on each team by rank rating
+
+	// Function CompareValues to sort my arrays of bots:
+	// I shamelessly copied this from https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
+	// actually, I am embarassed I couldn't come up with this on my own. But give me some time, I'm a good learner!
+	// And ultimately, the point is to get the job done, to achieve the desired outcomes. So, I'm doing that.
+	compareValues = function(key, order='asc') {
+	  return function(a, b) {
+	    if(!a.hasOwnProperty(key) || 
+	       !b.hasOwnProperty(key)) {
+	  	  return 0; 
+	    }
+	    
+	    const varA = (typeof a[key] === 'string') ? 
+	      a[key].toUpperCase() : a[key];
+	    const varB = (typeof b[key] === 'string') ? 
+	      b[key].toUpperCase() : b[key];
+	      
+	    let comparison = 0;
+	    if (varA > varB) {
+	      comparison = 1;
+	    } else if (varA < varB) {
+	      comparison = -1;
+	    }
+	    return (
+	      (order == 'desc') ? 
+	      (comparison * -1) : comparison
+	    );
+	  };
 	}
+	
+	rankTeams = function() {
+		// sort bots on each team by rank rating:
+		teamAutobots.sort(compareValues('rank'));
+		teamDecepticons.sort(compareValues('rank'));
+	}
+
 	battleBots = function() {
 		// user will click a "start" button to begin battle
 		// battle logic implemented
 		// results are output
 	}
-	newBattle = function() {
-		// reset all inputs and arrays to start fresh
-	}
-	rankTeams();
-	battleBots();
-	newBattle();
 
 	start = function() {
 		document.getElementById("errorMsg").innerHTML = "";
@@ -116,8 +145,11 @@ runApp = function() {
 		Decepticons = 0;
 		var teamAutobots = [];
 		var teamDecepticons = [];
-		document.getElementById("decepticonTeamSize").innerHTML = "<p>Decepticons team size is " + teamDecepticons.length + "</p>";
-		document.getElementById("autobotTeamSize").innerHTML = "<p>Autobots team size is " + Autobots + "</p>";
+		document.getElementById("teamSize").innerHTML = "<p>Decepticons team size is " + teamDecepticons.length + "</p>";
+		document.getElementById("teamSize").innerHTML += "<p>Autobots team size is " + Autobots + "</p>";
 		document.getElementById("errorMsg").innerHTML = "";
 	}
+
+	rankTeams();
+	battleBots();
 }
