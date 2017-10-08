@@ -17,14 +17,14 @@
 			<input type="text" placeholder="name" id="inputBotName"><br>
 			<input type="radio" name="team" value="Autobot" checked="checked" id="selectAutobot"><label for="Autobot">Autobot</label><br>
 			<input type="radio" name="team" value="Decepticon" id="selectDecepticon"><label for="Decepticon">Decepticon</label><br>
-			Strength: <input type="number" name="Strength" value="10" min="1" max="10" id="inputBotStrength"><br>
-			Intelligence: <input type="number" name="Strength" value="10" min="1" max="10" id="inputBotIntelligence"><br>
-			Speed: <input type="number" name="Intelligence" value="10" min="1" max="10" id="inputBotSpeed"><br>
-			Endurance: <input type="number" name="Speed" value="10" min="1" max="10" id="inputBotEndurance"><br>
-			Rank: <input type="number" name="Endurance" value="10" min="1" max="10" id="inputBotRank"><br>
-			Courage: <input type="number" name="Rank" value="10" min="1" max="10" id="inputBotCourage"><br>
-			Firepower: <input type="number" name="Courage" value="10" min="1" max="10" id="inputBotFirepower"><br>
-			Skill: <input type="number" name="Firepower" value="10" min="1" max="10" id="inputBotSkill"><br>
+			Strength: <input type="number" name="attributeValue" value="10" min="1" max="10" id="inputBotStrength"><br>
+			Intelligence: <input type="number" nname="attributeValue" value="10" min="1" max="10" id="inputBotIntelligence"><br>
+			Speed: <input type="number" name="attributeValue" value="10" min="1" max="10" id="inputBotSpeed"><br>
+			Endurance: <input type="number" name="attributeValue" value="10" min="1" max="10" id="inputBotEndurance"><br>
+			Rank: <input type="number" name="attributeValue" value="10" min="1" max="10" id="inputBotRank"><br>
+			Courage: <input type="number" name="attributeValue" value="10" min="1" max="10" id="inputBotCourage"><br>
+			Firepower: <input type="number" name="attributeValue" value="10" min="1" max="10" id="inputBotFirepower"><br>
+			Skill: <input type="number" name="attributeValue" value="10" min="1" max="10" id="inputBotSkill"><br>
 			<input type="submit">
 		<p>Autobots team size is <span id="teamSizeA">0</span></p>
 		<p>Decepticons team size is <span id="teamSizeD">0</span></p>
@@ -33,6 +33,7 @@
 	</div>
 	<div class="game messages">
 		<p id="errorMsg"></p>
+		<p id="gameMsg"></p>
 	</div>
 	<div class="space-between">
 		<button name="start" class="button start" onclick="start();">Start battle</button>

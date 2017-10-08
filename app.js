@@ -14,7 +14,7 @@
 // 5. battle output: how many battles, winning team, winning bot, survivors on losing team
 	var Autobots = 0;
 	var Decepticons = 0;
-	function Bot(name,team,strength,intelligence,speed,endurance,rank,courage,firepower,skill) {
+	function Bot(name,team,strength,intelligence,speed,endurance,rank,courage,firepower,skill,overall) {
 		this.name = name;
 		this.team = team;
 		this.strength = strength;
@@ -25,6 +25,7 @@
 		this.courage = courage;
 		this.firepower = firepower;
 		this.skill = skill;
+		this.overall = overall;
 	}
 	var teamAutobots = [];
 	var teamDecepticons = [];
@@ -48,6 +49,20 @@ runApp = function() {
 				teamAutobots[Autobots].courage = document.getElementById("inputBotCourage").value;
 				teamAutobots[Autobots].firepower = document.getElementById("inputBotFirepower").value;
 				teamAutobots[Autobots].skill = document.getElementById("inputBotSkill").value;
+
+				// sum total of stats for overall rating:
+				// again found a solution online at https://stackoverflow.com/questions/13540751/how-get-total-sum-from-input-box-values-using-javascript
+				function findTotal() {
+				    var arr = document.getElementsByName('attributeValue');
+				    var tot = 0;
+				    for (var i=0; i<arr.length; i++) {
+				        if (parseInt(arr[i].value))
+				            tot += parseInt(arr[i].value);
+					}
+				teamAutobots[Autobots].overall = tot;
+				}
+				findTotal();
+
 				Autobots ++;
 				document.getElementById("teamSizeA").innerHTML = teamAutobots.length;
 
@@ -71,6 +86,17 @@ runApp = function() {
 				teamDecepticons[Decepticons].courage = document.getElementById("inputBotCourage").value;
 				teamDecepticons[Decepticons].firepower = document.getElementById("inputBotFirepower").value;
 				teamDecepticons[Decepticons].skill = document.getElementById("inputBotSkill").value;
+
+				function findTotal() {
+				    var arr = document.getElementsByName('attributeValue');
+				    var tot = 0;
+				    for (var i=0; i<arr.length; i++) {
+				        if (parseInt(arr[i].value))
+				            tot += parseInt(arr[i].value);
+					}
+				teamDecepticons[Decepticons].overall = tot;
+				}
+				findTotal();
 				Decepticons ++;
 				document.getElementById("teamSizeD").innerHTML = teamDecepticons.length;
 			}	
@@ -122,6 +148,44 @@ runApp = function() {
 		// user will click a "start" button to begin battle
 		// battle logic implemented
 		// results are output
+		
+		var battleRounds = 0;
+		battleLength = function() {
+			if (teamAutobots.length > teamDecepticons.length) {
+				battleRounds = teamAutobots.length;
+			}
+			if (teamAutobots.length < teamDecepticons.length) {
+				battleRounds = teamDecepticons.length;
+			} else {
+				battleRounds = teamDecepticons.length;
+			}
+		}
+		for (i = 0; i < battleRounds; i++) {
+			if (teamAutobots[i].name === "Optimus Prime" && teamDecepticons[i].name === "Predaking") {
+				document.getElementById("gameMsg").innerHTML = "Apocalypse now! All is destroyed!";
+			}
+			if (teamAutobots[i].name === "Optimus Prime") {
+				document.getElementById("gameMsg").innerHTML = "Autobots win! Optimus Prime destroys all opponents!";
+			}
+			if (teamDecepticons[i].name === "Predaking") {
+				document.getElementById("gameMsg").innerHTML = "Decepticons win! Predaking destroys all opponents!";
+			}
+			if ((teamAutobots[i].courage - teamDecepticons[i].courage) > 3 && (teamAutobots[i].strength - teamDecepticons[i].strength) > 2) {
+				document.getElementById("gameMsg").innerHTML = teamAutobots[i].name + " wins this round! " + teamDecepticons[i].name + " has run away!";
+			}
+			if ((teamAutobots[i].courage - teamDecepticons[i].courage) > -3 && (teamAutobots[i].strength - teamDecepticons[i].strength) > -2) {
+				document.getElementById("gameMsg").innerHTML = teamDecepticons[i].name + " wins this round! " + teamAutobots[i].name + " has run away!";
+			}
+			if ((teamAutobots[i].skill - teamDecepticons[i].skill) > 2) {
+				document.getElementById("gameMsg").innerHTML = teamAutobots[i].name + " wins this round! " + teamDecepticons[i].name + " has run away!";
+			}
+			if ((teamAutobots[i].skill - teamDecepticons[i].skill) > -2) {
+				document.getElementById("gameMsg").innerHTML = teamDecepticons[i].name + " wins this round! " + teamAutobots[i].name + " has run away!";
+			}
+			if ((teamAutobots[i].skill - teamDecepticons[i].skill) > 2) {
+				document.getElementById("gameMsg").innerHTML = teamAutobots[i].name + " wins this round! " + teamDecepticons[i].name + " has run away!";
+			}
+		}
 	}
 
 	start = function() {
