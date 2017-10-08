@@ -30,9 +30,6 @@
 	var teamDecepticons = [];
 runApp = function() {
 
-	document.getElementById("teamSize").innerHTML += "<p>Decepticons team size is " + Decepticons + "</p>";
-	document.getElementById("teamSize").innerHTML += "<p>Autobots team size is " + Autobots + "</p>";
-
 	inputBots = function() {
 		// get form input from user for one bot at a time, in the form of:
 		// [bot name], [team], [strength], [intelligence], [speed], [endurance],[rank],[courage],[firepower],[skill]
@@ -52,7 +49,7 @@ runApp = function() {
 				teamAutobots[Autobots].firepower = document.getElementById("inputBotFirepower").value;
 				teamAutobots[Autobots].skill = document.getElementById("inputBotSkill").value;
 				Autobots ++;
-				document.getElementById("teamSize").innerHTML += "<p>Autobots team size is " + Autobots + "</p>";
+				document.getElementById("teamSizeA").innerHTML = teamAutobots.length;
 
 				// if (teamAutobots.length > 1) {
 				// 	for (var i = 0; i < teamAutobots.length; i++) {
@@ -75,7 +72,7 @@ runApp = function() {
 				teamDecepticons[Decepticons].firepower = document.getElementById("inputBotFirepower").value;
 				teamDecepticons[Decepticons].skill = document.getElementById("inputBotSkill").value;
 				Decepticons ++;
-				document.getElementById("teamSize").innerHTML += "<p>Decepticons team size is " + Decepticons + "</p>";
+				document.getElementById("teamSizeD").innerHTML = teamDecepticons.length;
 			}	
 		}
 		document.getElementById("inputBotName").value = "";
@@ -115,8 +112,10 @@ runApp = function() {
 	
 	rankTeams = function() {
 		// sort bots on each team by rank rating:
-		teamAutobots.sort(compareValues('rank'));
-		teamDecepticons.sort(compareValues('rank'));
+		teamAutobots.sort(compareValues('rank', 'desc'));
+		teamDecepticons.sort(compareValues('rank', 'desc'));
+		console.log("Decepticons sorted - order:" + teamDecepticons);
+		console.log("Autobots sorted - order:" + teamAutobots);
 	}
 
 	battleBots = function() {
@@ -129,12 +128,12 @@ runApp = function() {
 		document.getElementById("errorMsg").innerHTML = "";
 		// logic requiring at least one bot from each team with error message
 		if (teamAutobots.length < 1) {
-			document.getElementById("errorMsg").innerHTML += "You need to enter an Autobot to battle the Decepticons!" + "<br>";
+			document.getElementById("errorMsg").innerHTML = "You need to enter an Autobot to battle the Decepticons!" + "<br>";
 		} else {
 			document.getElementById("errorMsg").innerHTML = "";
 		}
 		if (teamDecepticons.length < 1) {
-			document.getElementById("errorMsg").innerHTML += "You need to enter an Decepticon to battle the Autobots!" + "<br>";
+			document.getElementById("errorMsg").innerHTML = "You need to enter an Decepticon to battle the Autobots!" + "<br>";
 		} else {
 			document.getElementById("errorMsg").innerHTML = "";
 		}
@@ -145,8 +144,8 @@ runApp = function() {
 		Decepticons = 0;
 		var teamAutobots = [];
 		var teamDecepticons = [];
-		document.getElementById("teamSize").innerHTML = "<p>Decepticons team size is " + teamDecepticons.length + "</p>";
-		document.getElementById("teamSize").innerHTML += "<p>Autobots team size is " + Autobots + "</p>";
+		document.getElementById("teamSizeA").innerHTML = 0;
+		document.getElementById("teamSizeD").innerHTML = 0;
 		document.getElementById("errorMsg").innerHTML = "";
 	}
 
