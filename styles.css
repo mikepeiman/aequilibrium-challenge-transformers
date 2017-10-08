@@ -7,8 +7,24 @@ body {
 .column-1-2 {
 	display:  inline-flex;
 	width: 50%;
+	&:hover {
+		background:  grey;
+	}
+}
+.space-between {
+	width:  100%;
+	display:  flex;
+	justify-content: space-around;
+	justify-items: space-between;
 }
 .title {
 	width:  100vw;
 	display:  block;
+}
+button {
+	padding:  .5em;
+	border:  5px solid #33aaff;
+}
+.button:hover {
+	border:  5px solid #ffaa33;
 }

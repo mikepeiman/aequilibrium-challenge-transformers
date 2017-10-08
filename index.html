@@ -13,9 +13,10 @@
 	</div>
 	<br>
 	<div class="column-1-2">
-		<form id="defineBot" action="" method="get" onSubmit="inputAutobot();return false;">
-			<input type="text" placeholder="name"><br>
-			<input type="radio" name="team" value="Autobot" checked="checked"> Autobot<br>
+		<form id="defineBot" action="" method="get" onSubmit="inputBots(); return false;">
+			<input type="text" placeholder="name" id="inputBotName"><br>
+			<input type="radio" name="team" value="Autobot" checked="checked" id="selectAutobot"><label for="Autobot">Autobot</label><br>
+			<input type="radio" name="team" value="Decepticon" id="selectDecepticon"><label for="Decepticon">Decepticon</label><br>
 			Strength: <input type="number" name="Strength" value="10" min="1" max="10"><br>
 			Intelligence: <input type="number" name="Intelligence" value="10" min="1" max="10"><br>
 			Speed: <input type="number" name="Speed" value="10" min="1" max="10"><br>
@@ -29,22 +30,12 @@
 		</form>
 
 	</div>
-	<div class="column-1-2">
-		<form id="defineBot" action="" method="get" onSubmit="inputDecepticon();return false;">
-			<input type="text" placeholder="name"><br>
-			<input type="radio" name="team" value="Decepticon" checked="checked"> Decepticon<br>
-			Strength: <input type="number" name="Strength" value="10" min="1" max="10"><br>
-			Intelligence: <input type="number" name="Intelligence" value="10" min="1" max="10"><br>
-			Speed: <input type="number" name="Speed" value="10" min="1" max="10"><br>
-			Endurance: <input type="number" name="Endurance" value="10" min="1" max="10"><br>
-			Rank: <input type="number" name="Rank" value="10" min="1" max="10"><br>
-			Courage: <input type="number" name="Courage" value="10" min="1" max="10"><br>
-			Firepower: <input type="number" name="Firepower" value="10" min="1" max="10"><br>
-			Skill: <input type="number" name="Skill" value="10" min="1" max="10"><br>
-			<input type="submit">
-		<p id="decepticonTeamSize"></p>
-		</form>
-
+	<div class="game messages">
+		<p id="errorMsg"></p>
+	</div>
+	<div class="space-between">
+		<button name="start" class="button start" onclick="start();">Start battle</button>
+		<button name="restart" class="button restart" onclick="restart();">Clear and restart</button>
 	</div>
 </body>
 </html>
