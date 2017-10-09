@@ -5,11 +5,19 @@ body {
 	align-content: space-around;
 }
 .column-1-2 {
-	display:  inline-flex;
+	display:  block;
 	width: 50%;
 	&:hover {
 		background:  grey;
 	}
+}
+.game-messages {
+	display:  flex;
+	flex-flow:  column;
+}
+.flex-row {
+	display:  flex;
+	flex-flow:  row wrap;
 }
 .space-between {
 	width:  100%;
