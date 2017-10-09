@@ -36,10 +36,12 @@ runApp = function() {
 
 
 	inputBots = function() {
+		Autobots = teamAutobots.length;
+		Decepticons = teamDecepticons.length;
 		// get form input from user for one bot at a time, in the form of:
 		// [bot name], [team], [strength], [intelligence], [speed], [endurance],[rank],[courage],[firepower],[skill]
 		if (document.getElementById("inputBotName").value == "") {
-				document.getElementById("errorMsg").innerHTML += "Your need to enter a bot name!" + "<br>";
+				document.getElementById("errorMsg").innerHTML += "Your bot must have a name!" + "<br>";
 		} else {
 			if (document.getElementById("selectAutobot").checked) {
 				teamAutobots[Autobots] = new Bot();
@@ -100,7 +102,7 @@ runApp = function() {
 				        if (parseInt(arr[i].value))
 				            tot += parseInt(arr[i].value);
 					}
-				teamDecepticons[Decepticons].overall = tot;
+					teamDecepticons[Decepticons].overall = tot;
 				}
 				findTotal();
 				Decepticons ++;
@@ -190,8 +192,34 @@ runApp = function() {
 		// win conditions
 		rankTeams();
 		for (i = 0; i < battleRounds; i++) {
-			document.getElementById("autobots-battle").innerHTML = teamAutobots[i].name;
-			document.getElementById("decepticons-battle").innerHTML = teamDecepticons[i].name;
+			document.getElementById("autobots-battle").innerHTML += "<hr>" +
+				"Name: " + teamAutobots[i].name + "<br>" +
+				"Rank: " + teamAutobots[i].rank + "<br>" +
+				"Overall: " + teamAutobots[i].overall + "<br>" +
+				"Strength: " + teamAutobots[i].strength + "<br>" +
+				"Intelligence: " + teamAutobots[i].intelligence + "<br>" +
+				"Speed: " + teamAutobots[i].speed + "<br>" +
+				"Endurance: " + teamAutobots[i].endurance + "<br>" +			
+				"Courage: " + teamAutobots[i].courage + "<br>" +
+				"Firepower: " + teamAutobots[i].firepower + "<br>" +
+				"Skill: " + teamAutobots[i].skill + "<br>";
+
+			document.getElementById("decepticons-battle").innerHTML += "<hr>" +
+				"Name: " + teamDecepticons[i].name + "<br>" +
+				"Rank: " + teamDecepticons[i].rank + "<br>" +
+				"Overall: " + teamDecepticons[i].overall + "<br>" +
+				"Strength: " + teamDecepticons[i].strength + "<br>" +
+				"Intelligence: " + teamDecepticons[i].intelligence + "<br>" +
+				"Speed: " + teamDecepticons[i].speed + "<br>" +
+				"Endurance: " + teamDecepticons[i].endurance + "<br>" +			
+				"Courage: " + teamDecepticons[i].courage + "<br>" +
+				"Firepower: " + teamDecepticons[i].firepower + "<br>" +
+				"Skill: " + teamDecepticons[i].skill + "<br>";
+
+		}
+
+
+		for (i = 0; i < battleRounds; i++) {
 			if (teamAutobots[i].name === "Optimus Prime" && teamDecepticons[i].name === "Predaking") {
 				console.log("check conditions for both Optimus Prime and Predaking");
 				document.getElementById("gameMsg").innerHTML = "Apocalypse now! All is destroyed!";
@@ -236,3 +264,138 @@ runApp = function() {
 		document.getElementById("gameMsg").innerHTML = "";
 	}
 }
+populate = function() {
+	// spent some time finding the correct regex for search and replace in order to pre-populate some values here
+				teamDecepticons[0] = new Bot();
+				teamDecepticons[0].name = "D3";
+				teamDecepticons[0].team = "Decepticons";	
+				teamDecepticons[0].strength = 3;
+				teamDecepticons[0].intelligence = 3;
+				teamDecepticons[0].speed = 3;
+				teamDecepticons[0].endurance = 3;
+				teamDecepticons[0].rank = 3;
+				teamDecepticons[0].courage = 3;
+				teamDecepticons[0].firepower = 3;
+				teamDecepticons[0].skill = 3;
+				teamDecepticons[0].overall =
+					teamDecepticons[0].strength +
+					teamDecepticons[0].intelligence +
+					teamDecepticons[0].speed +
+					teamDecepticons[0].endurance +
+					teamDecepticons[0].rank +
+					teamDecepticons[0].courage +
+					teamDecepticons[0].firepower +
+					teamDecepticons[0].skill;
+				
+				teamDecepticons[1] = new Bot();
+				teamDecepticons[1].name = "D5";
+				teamDecepticons[1].team = "Decepticons";	
+				teamDecepticons[1].strength = 5;
+				teamDecepticons[1].intelligence = 5;
+				teamDecepticons[1].speed = 5;
+				teamDecepticons[1].endurance = 5;
+				teamDecepticons[1].rank = 5;
+				teamDecepticons[1].courage = 5;
+				teamDecepticons[1].firepower = 5;
+				teamDecepticons[1].skill = 5;
+				teamDecepticons[1].overall =
+					teamDecepticons[1].strength +
+					teamDecepticons[1].intelligence +
+					teamDecepticons[1].speed +
+					teamDecepticons[1].endurance +
+					teamDecepticons[1].rank +
+					teamDecepticons[1].courage +
+					teamDecepticons[1].firepower +
+					teamDecepticons[1].skill;
+
+				teamDecepticons[2] = new Bot();
+				teamDecepticons[2].name = "Predaking";
+				teamDecepticons[2].team = "Decepticons";	
+				teamDecepticons[2].strength = 10;
+				teamDecepticons[2].intelligence = 5;
+				teamDecepticons[2].speed = 10;
+				teamDecepticons[2].endurance = 8;
+				teamDecepticons[2].rank = 7;
+				teamDecepticons[2].courage = 9;
+				teamDecepticons[2].firepower = 9;
+				teamDecepticons[2].skill = 8;
+				teamDecepticons[2].overall =
+					teamDecepticons[2].strength +
+					teamDecepticons[2].intelligence +
+					teamDecepticons[2].speed +
+					teamDecepticons[2].endurance +
+					teamDecepticons[2].rank +
+					teamDecepticons[2].courage +
+					teamDecepticons[2].firepower +
+					teamDecepticons[2].skill;
+
+				teamAutobots[0] = new Bot();
+				teamAutobots[0].name = "A3";
+				teamAutobots[0].team = "Autobots";	
+				teamAutobots[0].strength = 3;
+				teamAutobots[0].intelligence = 3;
+				teamAutobots[0].speed = 3;
+				teamAutobots[0].endurance = 3;
+				teamAutobots[0].rank = 3;
+				teamAutobots[0].courage = 3;
+				teamAutobots[0].firepower = 3;
+				teamAutobots[0].skill = 3;
+					teamAutobots[0].overall =
+					teamAutobots[0].strength +
+					teamAutobots[0].intelligence +
+					teamAutobots[0].speed +
+					teamAutobots[0].endurance +
+					teamAutobots[0].rank +
+					teamAutobots[0].courage +
+					teamAutobots[0].firepower +
+					teamAutobots[0].skill;
+
+				teamAutobots[1] = new Bot();
+				teamAutobots[1].name = "Optimus Prime";
+				teamAutobots[1].team = "Autobots";	
+				teamAutobots[1].strength = 10;
+				teamAutobots[1].intelligence = 10;
+				teamAutobots[1].speed = 8;
+				teamAutobots[1].endurance = 10;
+				teamAutobots[1].rank = 10;
+				teamAutobots[1].courage = 10;
+				teamAutobots[1].firepower = 8;
+				teamAutobots[1].skill = 10;
+					teamAutobots[1].overall =
+					teamAutobots[1].strength +
+					teamAutobots[1].intelligence +
+					teamAutobots[1].speed +
+					teamAutobots[1].endurance +
+					teamAutobots[1].rank +
+					teamAutobots[1].courage +
+					teamAutobots[1].firepower +
+					teamAutobots[1].skill;
+
+				teamAutobots[2] = new Bot();
+				teamAutobots[2].name = "A5";
+				teamAutobots[2].team = "Autobots";	
+				teamAutobots[2].strength = 5;
+				teamAutobots[2].intelligence = 5;
+				teamAutobots[2].speed = 5;
+				teamAutobots[2].endurance = 5;
+				teamAutobots[2].rank = 5;
+				teamAutobots[2].courage = 5;
+				teamAutobots[2].firepower = 5;
+				teamAutobots[2].skill = 5;
+					teamAutobots[2].overall =
+					teamAutobots[2].strength +
+					teamAutobots[2].intelligence +
+					teamAutobots[2].speed +
+					teamAutobots[2].endurance +
+					teamAutobots[2].rank +
+					teamAutobots[2].courage +
+					teamAutobots[2].firepower +
+					teamAutobots[2].skill;
+
+		document.getElementById("teamSizeA").innerHTML = teamAutobots.length;
+		document.getElementById("teamSizeD").innerHTML = teamDecepticons.length;
+
+				for (i = 0; i < teamAutobots.length; i++) {
+
+				}
+			}
