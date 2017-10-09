@@ -12,7 +12,10 @@
 // 	any bot named Optimus Prime or Predaking automatically win their match, UNLESS they face each other, 
 // 	  and THEN all bots are destroyed and game ends
 // 5. battle output: how many battles, winning team, winning bot, survivors on losing team
-	var Autobots = 0;
+
+runApp = function() {
+
+		var Autobots = 0;
 	var Decepticons = 0;
 	function Bot(name,team,strength,intelligence,speed,endurance,rank,courage,firepower,skill,overall) {
 		this.name = name;
@@ -29,7 +32,6 @@
 	}
 	var teamAutobots = [];
 	var teamDecepticons = [];
-runApp = function() {
 
 	inputBots = function() {
 		// get form input from user for one bot at a time, in the form of:
@@ -102,6 +104,22 @@ runApp = function() {
 			}	
 		}
 		document.getElementById("inputBotName").value = "";
+
+		var battleRounds = 0;
+		console.log("First log " + battleRounds);
+
+		battleLength = function() {
+			if (teamAutobots.length > teamDecepticons.length) {
+				battleRounds = teamAutobots.length;
+			}
+			if (teamAutobots.length < teamDecepticons.length) {
+				battleRounds = teamDecepticons.length;
+			} else {
+				battleRounds = teamDecepticons.length;
+			}
+			console.log("First log " + battleRounds);
+		}
+		battleLength();
 	}
 
 	console.log("Autobots team size is " + Autobots);
@@ -144,22 +162,25 @@ runApp = function() {
 		console.log("Autobots sorted - order:" + teamAutobots);
 	}
 
-	battleBots = function() {
+	start = function() {
 		// user will click a "start" button to begin battle
 		// battle logic implemented
 		// results are output
 		
-		var battleRounds = 0;
-		battleLength = function() {
-			if (teamAutobots.length > teamDecepticons.length) {
-				battleRounds = teamAutobots.length;
-			}
-			if (teamAutobots.length < teamDecepticons.length) {
-				battleRounds = teamDecepticons.length;
-			} else {
-				battleRounds = teamDecepticons.length;
-			}
+		document.getElementById("errorMsg").innerHTML = "";
+		// logic requiring at least one bot from each team with error message
+		if (teamAutobots.length < 1) {
+			document.getElementById("errorMsg").innerHTML = "You need to enter an Autobot to battle the Decepticons!" + "<br>";
+		} else {
+			document.getElementById("errorMsg").innerHTML = "";
 		}
+		if (teamDecepticons.length < 1) {
+			document.getElementById("errorMsg").innerHTML = "You need to enter an Decepticon to battle the Autobots!" + "<br>";
+		} else {
+			document.getElementById("errorMsg").innerHTML = "";
+		}
+
+
 		for (i = 0; i < battleRounds; i++) {
 			if (teamAutobots[i].name === "Optimus Prime" && teamDecepticons[i].name === "Predaking") {
 				document.getElementById("gameMsg").innerHTML = "Apocalypse now! All is destroyed!";
@@ -177,29 +198,17 @@ runApp = function() {
 				document.getElementById("gameMsg").innerHTML = teamDecepticons[i].name + " wins this round! " + teamAutobots[i].name + " has run away!";
 			}
 			if ((teamAutobots[i].skill - teamDecepticons[i].skill) > 2) {
-				document.getElementById("gameMsg").innerHTML = teamAutobots[i].name + " wins this round! " + teamDecepticons[i].name + " has run away!";
+				document.getElementById("gameMsg").innerHTML = teamAutobots[i].name + " wins this round based on skill!";
 			}
 			if ((teamAutobots[i].skill - teamDecepticons[i].skill) > -2) {
-				document.getElementById("gameMsg").innerHTML = teamDecepticons[i].name + " wins this round! " + teamAutobots[i].name + " has run away!";
+				document.getElementById("gameMsg").innerHTML = teamDecepticons[i].name + " wins this round based on skill!";
 			}
-			if ((teamAutobots[i].skill - teamDecepticons[i].skill) > 2) {
-				document.getElementById("gameMsg").innerHTML = teamAutobots[i].name + " wins this round! " + teamDecepticons[i].name + " has run away!";
+			if (teamAutobots[i].overall > teamDecepticons[i].overall) {
+				document.getElementById("gameMsg").innerHTML = teamAutobots[i].name + " wins this round based on overall score!";
 			}
-		}
-	}
-
-	start = function() {
-		document.getElementById("errorMsg").innerHTML = "";
-		// logic requiring at least one bot from each team with error message
-		if (teamAutobots.length < 1) {
-			document.getElementById("errorMsg").innerHTML = "You need to enter an Autobot to battle the Decepticons!" + "<br>";
-		} else {
-			document.getElementById("errorMsg").innerHTML = "";
-		}
-		if (teamDecepticons.length < 1) {
-			document.getElementById("errorMsg").innerHTML = "You need to enter an Decepticon to battle the Autobots!" + "<br>";
-		} else {
-			document.getElementById("errorMsg").innerHTML = "";
+			if (teamAutobots[i].overall < teamDecepticons[i].overall) {
+				document.getElementById("gameMsg").innerHTML = teamDecepticons[i].name + " wins this round based on overall score!";
+			}
 		}
 	}
 
@@ -214,5 +223,4 @@ runApp = function() {
 	}
 
 	rankTeams();
-	battleBots();
 }
