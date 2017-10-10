@@ -30,6 +30,9 @@
 	}
 	var teamAutobots = [];
 	var teamDecepticons = [];
+	var winner = false;
+	var scoreA = 0;
+	var scoreD = 0;
 
 runApp = function() {
 
@@ -112,8 +115,6 @@ runApp = function() {
 			}	
 		}
 		document.getElementById("inputBotName").value = "";
-
-
 	}
 
 	console.log("Autobots team size is " + Autobots);
@@ -155,22 +156,20 @@ runApp = function() {
 		console.log("Decepticons sorted - order:" + teamDecepticons);
 		console.log("Autobots sorted - order:" + teamAutobots);
 	}
-	var winner = false;
-	var scoreA = 0;
-	var scoreD = 0;
+
 	battleLogic = function(i) {
 			if (teamAutobots[i].name == "Optimus Prime" && teamDecepticons[i].name == "Predaking") {
 				console.log("check conditions for both Optimus Prime and Predaking");
-				document.getElementById("gameMsg").innerHTML = "Apocalypse now! Optimus Prime and Predaking face off destroys everything!!!" + "<br>";
-				winner = false;
+				document.getElementById("scoreboard").innerHTML = "<h2>Apocalypse now! Optimus Prime and Predaking face off destroys everything!!!" + "</h2><br>";
+				return false;
 			} else if (teamAutobots[i].name == "Optimus Prime") {
 				console.log("check conditions for only Optimus Prime");
-				document.getElementById("gameMsg").innerHTML += "Autobots win! Optimus Prime destroys all opponents!" + "<br>";
+				document.getElementById("gameMsg").innerHTML += "Optimus Prime annihilates his opponent!" + "<br>";
 				winner = "Autobots";
 				scoreA++;
 			} else if (teamDecepticons[i].name == "Predaking") {
 				console.log("check conditions for only Predaking");
-				document.getElementById("gameMsg").innerHTML += "Decepticons win! Predaking destroys all opponents!" + "<br>";
+				document.getElementById("gameMsg").innerHTML += "Predaking demolishes his opponent!" + "<br>";
 				winner = "Decepticons";
 				scoreD++;
 			} else if ((teamAutobots[i].courage - teamDecepticons[i].courage) > 3 && (teamAutobots[i].strength - teamDecepticons[i].strength) > 2) {
@@ -214,7 +213,7 @@ runApp = function() {
 			// 	document.getElementById("autobots-battle").classList.remove("winner");
 			// }
 
-			document.getElementById("autobots-battle").innerHTML += "<p><hr>" +
+			document.getElementById("autobots-battle").innerHTML += "<div class='flex-column'><hr>" +
 				"Name: " + teamAutobots[i].name + "<br>" +
 				"Rank: " + teamAutobots[i].rank + "<br>" +
 				"Overall: " + teamAutobots[i].overall + "<br>" +
@@ -224,15 +223,10 @@ runApp = function() {
 				"Endurance: " + teamAutobots[i].endurance + "<br>" +			
 				"Courage: " + teamAutobots[i].courage + "<br>" +
 				"Firepower: " + teamAutobots[i].firepower + "<br>" +
-				"Skill: " + teamAutobots[i].skill + "<br></p>";
-				if (winner === "Autobots") {
-					document.getElementById("autobots-battle").innerHTML += "<b>WINNER!</b>";
-					document.getElementById("decepticons-battle").innerHTML += "<br>";
-				} else if (!winner) {
-					document.getElementById("autobots-battle").innerHTML += "<b>TIE</b>";
-				}
+				"Skill: " + teamAutobots[i].skill + "<br></div>";
 
-			document.getElementById("decepticons-battle").innerHTML += "<p><hr>" +
+
+			document.getElementById("decepticons-battle").innerHTML += "<div class='flex-column'><hr>" +
 				"Name: " + teamDecepticons[i].name + "<br>" +
 				"Rank: " + teamDecepticons[i].rank + "<br>" +
 				"Overall: " + teamDecepticons[i].overall + "<br>" +
@@ -242,7 +236,14 @@ runApp = function() {
 				"Endurance: " + teamDecepticons[i].endurance + "<br>" +			
 				"Courage: " + teamDecepticons[i].courage + "<br>" +
 				"Firepower: " + teamDecepticons[i].firepower + "<br>" +
-				"Skill: " + teamDecepticons[i].skill + "<br></p>";
+				"Skill: " + teamDecepticons[i].skill + "<br></div>";
+				
+				if (winner === "Autobots") {
+					document.getElementById("autobots-battle").innerHTML += "<b>WINNER!</b>";
+					document.getElementById("decepticons-battle").innerHTML += "<br>";
+				} else if (!winner) {
+					document.getElementById("autobots-battle").innerHTML += "<b>TIE</b>";
+				}
 				if (winner === "Decepticons") {
 					document.getElementById("decepticons-battle").innerHTML += "<b>WINNER!</b>";
 					document.getElementById("autobots-battle").innerHTML += "<br>";
@@ -289,23 +290,51 @@ runApp = function() {
 			return battleRounds;
 		}
 		battleLength();
-		document.getElementById("game-messages").innerHTML += "<h3>Battles: " + battleRounds + "</h3";
+		document.getElementById("battles-count").innerHTML = "<h3>Battles: " + battleRounds + "</h3";
+		
+		scoreA = 0;
+		scoreD = 0;
 		for (i = 0; i < battleRounds; i++) {		  
 			battleLogic(i);
 		}
+
+		// logic for outputting team scores and survivors follows
+		document.getElementById("team-wins").innerHTML = "<h3>Wins: Autobots: " + scoreA + ",   Decepticons: " + scoreD + "</h3";
+		if (scoreA > scoreD) { winner = "Autobots" }
+		else if (scoreD > scoreA) { winner = "Decepticons" }
+		else { winner = "Tie" }
+		document.getElementById("overall-wins").innerHTML = "<h3>Winning team: " + winner + "</h3>";
+
+		if (teamAutobots.length > battleRounds) {
+			document.getElementById("survivors").innerHTML = "<h3>Autobots survivors remaining:</h3>";
+			var survivorsNumber = teamAutobots.length - battleRounds;
+			for (i = 0; i < survivorsNumber; i++) {
+				document.getElementById("survivors").innerHTML += "<li>" + teamAutobots[i + battleRounds].name + "</li>";	
+			}
+		}
+		if (teamDecepticons.length > battleRounds) {
+			document.getElementById("survivors").innerHTML = "<h3>Decepticons survivors remaining:</h3>";
+			var survivorsNumber = teamDecepticons.length - battleRounds;
+			for (i = 0; i < survivorsNumber; i++) {
+				document.getElementById("survivors").innerHTML += "<li>" + teamDecepticons[i + battleRounds].name + "</li>";	
+			}			
+		} if (teamDecepticons.length === teamAutobots.length) {
+			document.getElementById("survivors").innerHTML = "<h3>No survivors remaining</h3>";
+		}
+		
 	}
 
-	restart = function() {
-		Autobots = 0;
-		Decepticons = 0;
+	clearResults = function() {
+		document.getElementById("gameMsg").innerHTML = "";
+		document.getElementById("game-messages").innerHTML = '<div class="scoreboard" id="scoreboard">				<h2>Outcome:</h2>				<div id="battles-count"></div>				<div id="team-wins"></div>				<div id="overall-wins"></div>				<ol id="survivors"></ol>			</div>					<div class="flex-row">				<div class="column-1-2" id="autobots-battle">					<p>Autobots battle roster</p>				</div>				<div class="column-1-2" id="decepticons-battle">					<p>Decepticons battle roster</p>				</div>				<p id="gameMsg"></p>				<p id="errorMsg"></p>			</div>		</div>';
+	}
+	clearTeams = function() {
 		teamAutobots.length = 0;
 		teamDecepticons.length = 0;
+		Autobots = 0;
+		Decepticons = 0;
 		document.getElementById("teamSizeA").innerHTML = 0;
 		document.getElementById("teamSizeD").innerHTML = 0;
-		document.getElementById("errorMsg").innerHTML = "";
-		document.getElementById("gameMsg").innerHTML = "";
-		document.getElementById("autobots-battle").innerHTML = "";
-		document.getElementById("decepticons-battle").innerHTML = "";
 	}
 }
 populate = function() {
@@ -359,7 +388,7 @@ populate = function() {
 				teamDecepticons[2].intelligence = 5;
 				teamDecepticons[2].speed = 10;
 				teamDecepticons[2].endurance = 8;
-				teamDecepticons[2].rank = 7;
+				teamDecepticons[2].rank = 9;
 				teamDecepticons[2].courage = 9;
 				teamDecepticons[2].firepower = 9;
 				teamDecepticons[2].skill = 8;

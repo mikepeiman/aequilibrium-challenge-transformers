@@ -4,20 +4,32 @@ body {
 	justify-content: center;
 	align-content: space-around;
 }
+h3 {
+	line-height:  1em;
+}
 .column-1-2 {
 	display:  block;
 	width: 50%;
-	&:hover {
-		background:  grey;
-	}
+	height:  auto;
 }
 .game-messages {
 	display:  flex;
 	flex-flow:  column;
+	background: rgba(0,0,0,0.1);
+	padding:  1em;
+}
+.scoreboard {
+	background: white;
+	padding:  1em;
+		border:  5px solid blue;
 }
 .flex-row {
 	display:  flex;
 	flex-flow:  row wrap;
+}
+.flex-column {
+	flex-direction: column;
+	height:  auto;
 }
 .space-between {
 	width:  100%;

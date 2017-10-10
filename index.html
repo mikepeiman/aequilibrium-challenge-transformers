@@ -34,24 +34,30 @@
 				<div class="space-between">
 			<button name="populate" class="button populate" onclick="populate();">Populate teams</button>
 			<button name="start" class="button start" onclick="start();">Start battle</button>
-			<button name="restart" class="button restart" onclick="restart();">Clear and restart</button>
+			<button name="clear-results" class="button restart" onclick="clearResults();">Clear results</button>
+			<button name="clear-teams" class="button restart" onclick="clearTeams();">Clear teams</button>
 		</div>
 
 	</div>
 	<div class="column-1-2">
-		<div class="game-messages">
-			<h2>Outcome:</h2>
-			<div id="game-messages"></div>
-			
-			<div class="flex-row" id="gameMsg">
+		<div id="game-messages" class="game-messages">
+			<div class="scoreboard" id="scoreboard">
+				<h2>Outcome:</h2>
+				<div id="battles-count"></div>
+				<div id="team-wins"></div>
+				<div id="overall-wins"></div>
+				<ol id="survivors"></ol>
+			</div>
+		
+			<div class="flex-row">
 				<div class="column-1-2" id="autobots-battle">
 					<p>Autobots battle roster</p>
 				</div>
 				<div class="column-1-2" id="decepticons-battle">
 					<p>Decepticons battle roster</p>
 				</div>
-			<p id="errorMsg"></p>
-			<!-- <p id="gameMsg"></p> -->
+				<p id="gameMsg"></p>
+				<p id="errorMsg"></p>
 			</div>
 		</div>
 	</div>
