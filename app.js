@@ -159,48 +159,45 @@ runApp = function() {
 
 	battleLogic = function(i) {
 			if (teamAutobots[i].name == "Optimus Prime" && teamDecepticons[i].name == "Predaking") {
-				console.log("check conditions for both Optimus Prime and Predaking");
 				document.getElementById("scoreboard").innerHTML = "<h2>Apocalypse now! Optimus Prime and Predaking face off destroys everything!!!" + "</h2><br>";
-				return false;
+				return;
 			} else if (teamAutobots[i].name == "Optimus Prime") {
-				console.log("check conditions for only Optimus Prime");
-				document.getElementById("gameMsg").innerHTML += "Optimus Prime annihilates his opponent!" + "<br>";
+				document.getElementById("scoreboard").innerHTML += "Optimus Prime annihilates his opponent!" + "<br>";
 				winner = "Autobots";
 				scoreA++;
 			} else if (teamDecepticons[i].name == "Predaking") {
-				console.log("check conditions for only Predaking");
-				document.getElementById("gameMsg").innerHTML += "Predaking demolishes his opponent!" + "<br>";
+				document.getElementById("scoreboard").innerHTML += "Predaking demolishes his opponent!" + "<br>";
 				winner = "Decepticons";
 				scoreD++;
 			} else if ((teamAutobots[i].courage - teamDecepticons[i].courage) > 3 && (teamAutobots[i].strength - teamDecepticons[i].strength) > 2) {
-				document.getElementById("gameMsg").innerHTML += teamAutobots[i].name + " wins this round! " + teamDecepticons[i].name + " has run away!" + "<br>";
+				document.getElementById("scoreboard").innerHTML += teamAutobots[i].name + " wins this round! " + teamDecepticons[i].name + " has run away!" + "<br>";
 				winner = "Autobots";
 				scoreA++;
 			} else if ((teamDecepticons[i].courage - teamAutobots[i].courage) > 3 && (teamDecepticons[i].strength - teamAutobots[i].strength) > 2) {
-				document.getElementById("gameMsg").innerHTML += teamDecepticons[i].name + " wins this round! " + teamAutobots[i].name + " has run away!" + "<br>";
+				document.getElementById("scoreboard").innerHTML += teamDecepticons[i].name + " wins this round! " + teamAutobots[i].name + " has run away!" + "<br>";
 				winner = "Decepticons";
 				scoreD++;
 			} else if ((teamAutobots[i].skill - teamDecepticons[i].skill) > 2) {
-				document.getElementById("gameMsg").innerHTML += teamAutobots[i].name + " wins this round based on skill!" + "<br>";
+				document.getElementById("scoreboard").innerHTML += teamAutobots[i].name + " wins this round based on skill!" + "<br>";
 				winner = "Autobots";
 				scoreA++;
 			} else if ((teamDecepticons[i].skill - teamAutobots[i].skill) > 2) {
-				document.getElementById("gameMsg").innerHTML += teamDecepticons[i].name + " wins this round based on skill!" + "<br>";
+				document.getElementById("scoreboard").innerHTML += teamDecepticons[i].name + " wins this round based on skill!" + "<br>";
 				winner = "Decepticons";
 				scoreD++;
 			} else if (teamAutobots[i].overall > teamDecepticons[i].overall) {
-				document.getElementById("gameMsg").innerHTML += teamAutobots[i].name + " wins this round based on overall score!" + "<br>";
+				document.getElementById("scoreboard").innerHTML += teamAutobots[i].name + " wins this round based on overall score!" + "<br>";
 				winner = "Autobots";
 				scoreA++;
 			} else if (teamAutobots[i].overall < teamDecepticons[i].overall) {
-				document.getElementById("gameMsg").innerHTML += teamDecepticons[i].name + " wins this round based on overall score!" + "<br>";
+				document.getElementById("scoreboard").innerHTML += teamDecepticons[i].name + " wins this round based on overall score!" + "<br>";
 				winner = "Decepticons";
 				scoreD++;
 			} else if (teamAutobots[i].overall === teamDecepticons[i].overall)  {
-				document.getElementById("gameMsg").innerHTML += "Tie! both bots destroyed." + "<br>";
+				document.getElementById("scoreboard").innerHTML += "Tie! both bots destroyed." + "<br>";
 				winner = false;
 			} else {
-				document.getElementById("gameMsg").innerHTML += "No victory conditions were met! (weird)" + "<br>";
+				document.getElementById("scoreboard").innerHTML += "No victory conditions were met! (weird)" + "<br>";
 			}
 			
 			// if (winner === "Autobots") {
@@ -296,6 +293,7 @@ runApp = function() {
 		scoreD = 0;
 		for (i = 0; i < battleRounds; i++) {		  
 			battleLogic(i);
+			if (teamAutobots[i].name == "Optimus Prime" && teamDecepticons[i].name == "Predaking") { return; }
 		}
 
 		// logic for outputting team scores and survivors follows
