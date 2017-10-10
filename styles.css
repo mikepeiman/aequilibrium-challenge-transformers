@@ -36,3 +36,6 @@ button {
 .button:hover {
 	border:  5px solid #ffaa33;
 }
+.winner {
+	color:  green;
+}

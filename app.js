@@ -155,40 +155,125 @@ runApp = function() {
 		console.log("Decepticons sorted - order:" + teamDecepticons);
 		console.log("Autobots sorted - order:" + teamAutobots);
 	}
+	var winner = false;
+	var scoreA = 0;
+	var scoreD = 0;
 	battleLogic = function(i) {
 			if (teamAutobots[i].name == "Optimus Prime" && teamDecepticons[i].name == "Predaking") {
 				console.log("check conditions for both Optimus Prime and Predaking");
-				document.getElementById("gameMsg").innerHTML += "Apocalypse now! Optimus Prime and Predaking face off destroys everything!!!" + "<br>";
-				
+				document.getElementById("gameMsg").innerHTML = "Apocalypse now! Optimus Prime and Predaking face off destroys everything!!!" + "<br>";
+				winner = false;
 			} else if (teamAutobots[i].name == "Optimus Prime") {
 				console.log("check conditions for only Optimus Prime");
 				document.getElementById("gameMsg").innerHTML += "Autobots win! Optimus Prime destroys all opponents!" + "<br>";
+				winner = "Autobots";
+				scoreA++;
 			} else if (teamDecepticons[i].name == "Predaking") {
 				console.log("check conditions for only Predaking");
 				document.getElementById("gameMsg").innerHTML += "Decepticons win! Predaking destroys all opponents!" + "<br>";
+				winner = "Decepticons";
+				scoreD++;
 			} else if ((teamAutobots[i].courage - teamDecepticons[i].courage) > 3 && (teamAutobots[i].strength - teamDecepticons[i].strength) > 2) {
 				document.getElementById("gameMsg").innerHTML += teamAutobots[i].name + " wins this round! " + teamDecepticons[i].name + " has run away!" + "<br>";
+				winner = "Autobots";
+				scoreA++;
 			} else if ((teamDecepticons[i].courage - teamAutobots[i].courage) > 3 && (teamDecepticons[i].strength - teamAutobots[i].strength) > 2) {
 				document.getElementById("gameMsg").innerHTML += teamDecepticons[i].name + " wins this round! " + teamAutobots[i].name + " has run away!" + "<br>";
+				winner = "Decepticons";
+				scoreD++;
 			} else if ((teamAutobots[i].skill - teamDecepticons[i].skill) > 2) {
 				document.getElementById("gameMsg").innerHTML += teamAutobots[i].name + " wins this round based on skill!" + "<br>";
+				winner = "Autobots";
+				scoreA++;
 			} else if ((teamDecepticons[i].skill - teamAutobots[i].skill) > 2) {
 				document.getElementById("gameMsg").innerHTML += teamDecepticons[i].name + " wins this round based on skill!" + "<br>";
+				winner = "Decepticons";
+				scoreD++;
 			} else if (teamAutobots[i].overall > teamDecepticons[i].overall) {
 				document.getElementById("gameMsg").innerHTML += teamAutobots[i].name + " wins this round based on overall score!" + "<br>";
+				winner = "Autobots";
+				scoreA++;
 			} else if (teamAutobots[i].overall < teamDecepticons[i].overall) {
 				document.getElementById("gameMsg").innerHTML += teamDecepticons[i].name + " wins this round based on overall score!" + "<br>";
+				winner = "Decepticons";
+				scoreD++;
 			} else if (teamAutobots[i].overall === teamDecepticons[i].overall)  {
 				document.getElementById("gameMsg").innerHTML += "Tie! both bots destroyed." + "<br>";
+				winner = false;
 			} else {
 				document.getElementById("gameMsg").innerHTML += "No victory conditions were met! (weird)" + "<br>";
 			}
+			
+			// if (winner === "Autobots") {
+			// 	console.log("autobots win this round #" + (i + 1));
+			// 	document.getElementById("autobots-battle").classList.add("winner");
+			// 	document.getElementById("decepticons-battle").classList.remove("winner");
+			// } else if (winner === "Decepticons") {
+			// 	console.log("decepticons win this round #" + (i + 1));
+			// 	document.getElementById("decepticons-battle").classList.add("winner");
+			// 	document.getElementById("autobots-battle").classList.remove("winner");
+			// }
+
+			document.getElementById("autobots-battle").innerHTML += "<p><hr>" +
+				"Name: " + teamAutobots[i].name + "<br>" +
+				"Rank: " + teamAutobots[i].rank + "<br>" +
+				"Overall: " + teamAutobots[i].overall + "<br>" +
+				"Strength: " + teamAutobots[i].strength + "<br>" +
+				"Intelligence: " + teamAutobots[i].intelligence + "<br>" +
+				"Speed: " + teamAutobots[i].speed + "<br>" +
+				"Endurance: " + teamAutobots[i].endurance + "<br>" +			
+				"Courage: " + teamAutobots[i].courage + "<br>" +
+				"Firepower: " + teamAutobots[i].firepower + "<br>" +
+				"Skill: " + teamAutobots[i].skill + "<br></p>";
+				if (winner === "Autobots") {
+					document.getElementById("autobots-battle").innerHTML += "<b>WINNER!</b>";
+					document.getElementById("decepticons-battle").innerHTML += "<br>";
+				} else if (!winner) {
+					document.getElementById("autobots-battle").innerHTML += "<b>TIE</b>";
+				}
+
+			document.getElementById("decepticons-battle").innerHTML += "<p><hr>" +
+				"Name: " + teamDecepticons[i].name + "<br>" +
+				"Rank: " + teamDecepticons[i].rank + "<br>" +
+				"Overall: " + teamDecepticons[i].overall + "<br>" +
+				"Strength: " + teamDecepticons[i].strength + "<br>" +
+				"Intelligence: " + teamDecepticons[i].intelligence + "<br>" +
+				"Speed: " + teamDecepticons[i].speed + "<br>" +
+				"Endurance: " + teamDecepticons[i].endurance + "<br>" +			
+				"Courage: " + teamDecepticons[i].courage + "<br>" +
+				"Firepower: " + teamDecepticons[i].firepower + "<br>" +
+				"Skill: " + teamDecepticons[i].skill + "<br></p>";
+				if (winner === "Decepticons") {
+					document.getElementById("decepticons-battle").innerHTML += "<b>WINNER!</b>";
+					document.getElementById("autobots-battle").innerHTML += "<br>";
+				} else if (!winner) {
+					document.getElementById("decepticons-battle").innerHTML += "<b>TIE</b>";
+				}
 		}
 
+		// user will click a "start" button to begin battle
+		// battle logic implemented
+		// results are output
 	start = function() {
 		console.log("start() triggered");
 		document.getElementById("autobots-battle").innerHTML = "";
-		document.getElementById("decepticons-battle").innerHTML = "";
+		document.getElementById("decepticons-battle").innerHTML = "";	
+		document.getElementById("errorMsg").innerHTML = "";
+		// logic requiring at least one bot from each team with error message
+		if (teamAutobots.length < 1 && teamDecepticons.length < 1) {
+			document.getElementById("errorMsg").innerHTML = "You need to enter at least one bot from each side!" + "<br>";
+		} else if (teamAutobots.length < 1 && teamDecepticons.length > 0) {
+			document.getElementById("errorMsg").innerHTML = "You need to enter an Autobot to battle the Decepticons!" + "<br>";
+		} else if (teamDecepticons.length < 1 && teamAutobots.length > 0) {
+			document.getElementById("errorMsg").innerHTML = "You need to enter an Decepticon to battle the Autobots!" + "<br>";
+		} else {
+			document.getElementById("errorMsg").innerHTML = "";
+		}
+
+		rankTeams();
+		document.getElementById("decepticons-battle").classList.remove("winner");
+		document.getElementById("autobots-battle").classList.remove("winner");
+
 		var battleRounds = 0;
 		battleLength = function() {
 			if (teamAutobots.length > teamDecepticons.length) {
@@ -204,50 +289,9 @@ runApp = function() {
 			return battleRounds;
 		}
 		battleLength();
-		// user will click a "start" button to begin battle
-		// battle logic implemented
-		// results are output
-		
-		document.getElementById("errorMsg").innerHTML = "";
-		// logic requiring at least one bot from each team with error message
-		if (teamAutobots.length < 1 && teamDecepticons.length < 1) {
-			document.getElementById("errorMsg").innerHTML = "You need to enter at least one bot from each side!" + "<br>";
-		} else if (teamAutobots.length < 1 && teamDecepticons.length > 0) {
-			document.getElementById("errorMsg").innerHTML = "You need to enter an Autobot to battle the Decepticons!" + "<br>";
-		} else if (teamDecepticons.length < 1 && teamAutobots.length > 0) {
-			document.getElementById("errorMsg").innerHTML = "You need to enter an Decepticon to battle the Autobots!" + "<br>";
-		} else {
-			document.getElementById("errorMsg").innerHTML = "";
-		}
-
-		rankTeams();
-		for (i = 0; i < battleRounds; i++) {
-			document.getElementById("autobots-battle").innerHTML += "<hr>" +
-				"Name: " + teamAutobots[i].name + "<br>" +
-				"Rank: " + teamAutobots[i].rank + "<br>" +
-				"Overall: " + teamAutobots[i].overall + "<br>" +
-				"Strength: " + teamAutobots[i].strength + "<br>" +
-				"Intelligence: " + teamAutobots[i].intelligence + "<br>" +
-				"Speed: " + teamAutobots[i].speed + "<br>" +
-				"Endurance: " + teamAutobots[i].endurance + "<br>" +			
-				"Courage: " + teamAutobots[i].courage + "<br>" +
-				"Firepower: " + teamAutobots[i].firepower + "<br>" +
-				"Skill: " + teamAutobots[i].skill + "<br>";
-
-			document.getElementById("decepticons-battle").innerHTML += "<hr>" +
-				"Name: " + teamDecepticons[i].name + "<br>" +
-				"Rank: " + teamDecepticons[i].rank + "<br>" +
-				"Overall: " + teamDecepticons[i].overall + "<br>" +
-				"Strength: " + teamDecepticons[i].strength + "<br>" +
-				"Intelligence: " + teamDecepticons[i].intelligence + "<br>" +
-				"Speed: " + teamDecepticons[i].speed + "<br>" +
-				"Endurance: " + teamDecepticons[i].endurance + "<br>" +			
-				"Courage: " + teamDecepticons[i].courage + "<br>" +
-				"Firepower: " + teamDecepticons[i].firepower + "<br>" +
-				"Skill: " + teamDecepticons[i].skill + "<br>";
-
+		document.getElementById("game-messages").innerHTML += "<h3>Battles: " + battleRounds + "</h3";
+		for (i = 0; i < battleRounds; i++) {		  
 			battleLogic(i);
-
 		}
 	}
 
@@ -269,14 +313,14 @@ populate = function() {
 				teamDecepticons[0] = new Bot();
 				teamDecepticons[0].name = "D3";
 				teamDecepticons[0].team = "Decepticons";	
-				teamDecepticons[0].strength = 3;
-				teamDecepticons[0].intelligence = 3;
-				teamDecepticons[0].speed = 3;
-				teamDecepticons[0].endurance = 3;
-				teamDecepticons[0].rank = 3;
-				teamDecepticons[0].courage = 3;
-				teamDecepticons[0].firepower = 3;
-				teamDecepticons[0].skill = 3;
+				teamDecepticons[0].strength = 7;
+				teamDecepticons[0].intelligence = 7;
+				teamDecepticons[0].speed = 7;
+				teamDecepticons[0].endurance = 7;
+				teamDecepticons[0].rank = 7;
+				teamDecepticons[0].courage = 7;
+				teamDecepticons[0].firepower = 7;
+				teamDecepticons[0].skill = 7;
 				teamDecepticons[0].overall =
 					teamDecepticons[0].strength +
 					teamDecepticons[0].intelligence +
